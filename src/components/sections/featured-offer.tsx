@@ -12,7 +12,7 @@ export default function FeaturedOffer() {
     <section id="featured" className="relative py-20 sm:py-32">
       <div className="mx-auto max-w-5xl px-5 sm:px-6">
         {/* ═══════════════════════════════════════════
-            HEADER
+            HEADER — Centré
             ═══════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,12 +37,12 @@ export default function FeaturedOffer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid items-start gap-10 sm:gap-12 lg:grid-cols-[1.1fr,1fr] lg:gap-20"
+          className="grid items-start gap-12 sm:gap-14 lg:grid-cols-[1.1fr,1fr] lg:gap-20"
         >
           {/* ══════════════════════════════════
               COLONNE GAUCHE — PITCH
               ══════════════════════════════════ */}
-          <div>
+          <div className="text-left">
             {/* Titre complet */}
             <h3 className="text-xl font-bold leading-tight tracking-tight text-white sm:text-2xl lg:text-3xl">
               {offer.title}
@@ -64,38 +64,47 @@ export default function FeaturedOffer() {
               <ul className="mt-3 space-y-2 text-xs text-zinc-400 sm:text-sm">
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
-                  <span>Tu veux démarrer ton business cleaning sans tourner en rond</span>
+                  <span>
+                    Tu veux démarrer ton business cleaning sans tourner en rond
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
-                  <span>Tu as déjà des clients et tu veux structurer pour scaler</span>
+                  <span>
+                    Tu as déjà des clients et tu veux structurer pour scaler
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
-                  <span>Tu veux un plan personnalisé et un vrai suivi</span>
+                  <span>
+                    Tu veux un plan personnalisé et un vrai suivi
+                  </span>
                 </li>
               </ul>
             </div>
 
-            {/* Prix */}
-            <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 sm:mt-10 sm:gap-x-4">
-              <div className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                {offer.priceLabel}
-              </div>
-              {offer.compareAtPrice && (
-                <div className="text-base text-zinc-600 line-through sm:text-lg">
-                  CA${offer.compareAtPrice.toLocaleString("fr-CA")}
+            {/* ═══════════════════════════════════
+                BLOC PRIX — Espacement généreux
+                ═══════════════════════════════════ */}
+            <div className="mt-10 sm:mt-12">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 sm:gap-x-4">
+                <div className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                  {offer.priceLabel}
                 </div>
-              )}
+                {offer.compareAtPrice && (
+                  <div className="text-base text-zinc-600 line-through sm:text-lg">
+                    CA${offer.compareAtPrice.toLocaleString("fr-CA")}
+                  </div>
+                )}
+              </div>
+
+              <p className="mt-2 text-xs text-zinc-500 sm:mt-3 sm:text-sm">
+                Paiement en 3x sans frais disponible
+              </p>
             </div>
 
-            {/* Sous-texte paiement */}
-            <p className="mt-2 text-xs text-zinc-500 sm:mt-3 sm:text-sm">
-              Paiement en 3x sans frais disponible
-            </p>
-
             {/* Urgence */}
-            <div className="mt-6 flex items-center gap-2.5 sm:mt-8 sm:gap-3">
+            <div className="mt-8 flex items-center gap-2.5 sm:mt-10 sm:gap-3">
               <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-400" />
               <span className="text-xs text-zinc-400 sm:text-sm">
                 Plus que{" "}
@@ -104,8 +113,10 @@ export default function FeaturedOffer() {
               </span>
             </div>
 
-            {/* CTA — Compact sur mobile */}
-            <div className="mt-7 sm:mt-10">
+            {/* ═══════════════════════════════════
+                CTA — Espacé du texte au-dessus
+                ═══════════════════════════════════ */}
+            <div className="mt-10 sm:mt-12">
               <a
                 href={offer.ctaHref}
                 target="_blank"
@@ -121,7 +132,7 @@ export default function FeaturedOffer() {
           {/* ══════════════════════════════════
               COLONNE DROITE — BÉNÉFICES
               ══════════════════════════════════ */}
-          <div className="lg:pt-2">
+          <div className="text-left lg:pt-2">
             <p className="mb-5 text-[10px] uppercase tracking-[0.15em] text-zinc-600 sm:mb-6 sm:text-xs">
               Ce que tu obtiens
             </p>
@@ -151,11 +162,11 @@ export default function FeaturedOffer() {
             </ul>
 
             {/* Garantie */}
-            <div className="mt-8 border-t border-white/5 pt-5 sm:mt-10 sm:pt-6">
+            <div className="mt-10 border-t border-white/5 pt-6 sm:mt-12">
               <p className="text-[10px] uppercase tracking-[0.15em] text-zinc-600 sm:text-xs">
                 Garantie
               </p>
-              <p className="mt-2 text-xs leading-relaxed text-zinc-400 sm:mt-3 sm:text-sm">
+              <p className="mt-3 text-xs leading-relaxed text-zinc-400 sm:text-sm">
                 Si après la 1ère session tu n'es pas convaincue, je te
                 rembourse intégralement. Sans question.
               </p>
