@@ -6,8 +6,24 @@ import { ArrowRight } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-32 sm:py-40">
-      <div className="mx-auto max-w-4xl px-6 text-center">
+    <section className="relative overflow-hidden py-32 sm:py-40">
+      {/* ═══════════════════════════════════════════
+          HALOS DÉGRADÉS DANS LES ANGLES
+          ═══════════════════════════════════════════ */}
+
+      {/* Halo ORANGE — Coin haut gauche */}
+      <div className="pointer-events-none absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-orange-500/20 blur-[120px]" />
+
+      {/* Halo OR — Coin bas droit */}
+      <div className="pointer-events-none absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-amber-400/15 blur-[120px]" />
+
+      {/* Halo AMBRE — Coin haut droit (discret) */}
+      <div className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-amber-500/10 blur-[100px]" />
+
+      {/* Grille subtile */}
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-15" />
+
+      <div className="relative mx-auto max-w-4xl px-6 text-center">
         {/* ═══════════════════════════════════════════
             TITRE MASSIF
             ═══════════════════════════════════════════ */}
