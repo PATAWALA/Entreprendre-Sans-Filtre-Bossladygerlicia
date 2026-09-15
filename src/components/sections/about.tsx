@@ -34,7 +34,7 @@ export default function About() {
           >
             <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#111218] sm:rounded-2xl">
               <Image
-                src="/gerlicia.jpg"
+                src="/gerlicia1.jpg"
                 alt="Gerlicia — Fondatrice d'Entreprendre Sans Filtre"
                 fill
                 className="object-cover"

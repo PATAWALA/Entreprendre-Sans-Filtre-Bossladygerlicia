@@ -24,7 +24,7 @@ function whatsappLink(message: string): string {
 }
 
 /* ═══════════════════════════════════════════════
-   3 PRODUITS (simulés)
+   3 PRODUITS — Images Unsplash directes
    ═══════════════════════════════════════════════ */
 export const shopProducts: ShopProduct[] = [
   {
@@ -35,7 +35,8 @@ export const shopProducts: ShopProduct[] = [
       "Une huile naturelle créée pour apaiser le corps après l'accouchement. Formule douce à base d'huiles essentielles et végétales, pensées pour les femmes qui se reconnectent à elles-mêmes.",
     price: 45,
     priceLabel: "CA$45",
-    image: "/shop/huile.jpg",
+    image:
+      "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=900&q=85&auto=format&fit=crop",
     category: "Post-partum",
     badge: "Best-seller",
     highlights: [
@@ -56,7 +57,8 @@ export const shopProducts: ShopProduct[] = [
     price: 89,
     compareAtPrice: 120,
     priceLabel: "CA$89",
-    image: "/shop/kit.jpg",
+    image:
+      "https://images.unsplash.com/photo-1602874801007-aa29a9e0e7c2?w=900&q=85&auto=format&fit=crop",
     category: "Rituel & Bien-être",
     badge: "Édition limitée",
     highlights: [
@@ -76,7 +78,8 @@ export const shopProducts: ShopProduct[] = [
       "Un soin intime doux et naturel, formulé sans parabènes ni sulfates. Conçu pour respecter l'équilibre du corps féminin et apporter confort et confiance au quotidien.",
     price: 35,
     priceLabel: "CA$35",
-    image: "/shop/soin.jpg",
+    image:
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=900&q=85&auto=format&fit=crop",
     category: "Soins intimes",
     highlights: [
       "pH équilibré",
