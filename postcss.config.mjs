@@ -1,28 +1,8 @@
-// next.config.mjs
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "images.pexels.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.pixabay.com",
-        port: "",
-        pathname: "/**",
-      },
-    ],
+// postcss.config.mjs
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
   },
 };
 
-export default nextConfig;
+export default config;
