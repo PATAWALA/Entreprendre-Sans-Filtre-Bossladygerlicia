@@ -13,18 +13,20 @@ export default function About() {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         {/* ═══════════════════════════════════════════
-            GRID — Empilé mobile, côte à côte desktop
+            GRID
+            → Mobile : 1 colonne (empilé)
+            → Desktop (lg ≥ 1024px) : 2 colonnes côte à côte
             ═══════════════════════════════════════════ */}
-        <div className="grid items-center gap-10 sm:gap-14 lg:grid-cols-[0.85fr,1fr] lg:gap-20">
+        <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-16 xl:gap-20">
           {/* ══════════════════════════════════
               COLONNE GAUCHE — PHOTO
               ══════════════════════════════════ */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-sm lg:mx-0 lg:max-w-none"
+            className="relative w-full max-w-md lg:max-w-none"
           >
             <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#111218] sm:rounded-2xl">
               <Image
@@ -32,7 +34,7 @@ export default function About() {
                 alt="Gerlicia — Fondatrice d'Entreprendre Sans Filtre"
                 fill
                 className="object-cover"
-                sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 480px"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 60vw, 480px"
                 priority
               />
 
@@ -42,30 +44,29 @@ export default function About() {
           </motion.div>
 
           {/* ══════════════════════════════════
-              COLONNE DROITE — TEXTE (aligné à gauche partout)
+              COLONNE DROITE — TEXTE
               ══════════════════════════════════ */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{
               duration: 0.8,
               delay: 0.15,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="text-left"
           >
             {/* Eyebrow */}
-            <span className="eyebrow">À propos</span>
+            <span className="eyebrow text-[10px] sm:text-xs">À propos</span>
 
             {/* Titre */}
-            <h2 className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-3 text-2xl font-bold leading-[1.1] tracking-tight text-white sm:mt-4 sm:text-3xl lg:text-5xl">
               De zéro à{" "}
               <span className="text-accent">37 employés</span>.
             </h2>
 
             {/* Paragraphes */}
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-zinc-400 sm:mt-8 sm:space-y-5 sm:text-lg">
+            <div className="mt-5 space-y-3 text-sm leading-relaxed text-zinc-400 sm:mt-8 sm:space-y-5 sm:text-base lg:text-lg">
               <p>
                 Je m'appelle{" "}
                 <span className="font-medium text-white">Gerlicia</span>. En
@@ -73,7 +74,7 @@ export default function About() {
                 un aspirateur, et beaucoup de détermination.
               </p>
 
-              <p>
+              <p className="hidden sm:block">
                 Aujourd'hui, je dirige{" "}
                 <span className="font-medium text-white">
                   37 employés répartis entre Ottawa, Toronto et Edmonton
@@ -87,19 +88,31 @@ export default function About() {
                 de perdre 3 ans à apprendre ce que tu peux maîtriser en 45
                 jours.
               </p>
+
+              {/* Version mobile condensée */}
+              <p className="sm:hidden">
+                Aujourd'hui, je dirige{" "}
+                <span className="font-medium text-white">
+                  37 employés à Ottawa, Toronto et Edmonton
+                </span>
+                .
+              </p>
             </div>
 
             {/* Signature */}
-            <div className="mt-8 flex items-center gap-4 sm:mt-10">
-              <div className="h-px w-12 bg-linear-to-r from-amber-400/60 to-transparent" />
-              <span className="text-sm italic text-zinc-500">
+            <div className="mt-6 flex items-center gap-3 sm:mt-10 sm:gap-4">
+              <div className="h-px w-8 bg-linear-to-r from-amber-400/60 to-transparent sm:w-12" />
+              <span className="text-xs italic text-zinc-500 sm:text-sm">
                 Gerlicia — Fondatrice
               </span>
             </div>
 
             {/* CTA */}
-            <div className="mt-8 sm:mt-10">
-              <a href="#recommender" className="btn-primary group">
+            <div className="mt-6 sm:mt-10">
+              <a
+                href="#recommender"
+                className="btn-primary group text-sm sm:text-base"
+              >
                 Trouver mon offre
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>

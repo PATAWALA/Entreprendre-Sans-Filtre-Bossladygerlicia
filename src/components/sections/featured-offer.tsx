@@ -9,10 +9,7 @@ export default function FeaturedOffer() {
   const offer = offers.find((o) => o.featured)!;
 
   return (
-    <section
-      id="featured"
-      className="relative overflow-hidden py-24 sm:py-32"
-    >
+    <section id="featured" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
         {/* ═══════════════════════════════════════════
             HEADER
@@ -24,7 +21,7 @@ export default function FeaturedOffer() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
-          <span className="eyebrow">{offer.badge}</span>
+          <span className="eyebrow">Mon programme signature</span>
           <h2 className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
             L'accompagnement qui
             <br className="hidden sm:block" />
@@ -51,10 +48,39 @@ export default function FeaturedOffer() {
               {offer.title}
             </h3>
 
-            {/* Description */}
+            {/* ═══════════════════════════════════════
+                DESCRIPTION REFORMULÉE
+                → Inclut tous les profils
+                ═══════════════════════════════════════ */}
             <p className="mt-5 text-base leading-relaxed text-zinc-400 sm:text-lg">
-              {offer.description}
+              Que tu partes de zéro ou que tu aies déjà tes premiers clients —
+              cet accompagnement de 45 jours est conçu pour te faire passer à
+              l'action avec un plan clair, un suivi personnalisé et les
+              stratégies qui ont réellement fait leurs preuves.
             </p>
+
+            {/* ═══════════════════════════════════════
+                POUR QUI ? — Petit encart
+                ═══════════════════════════════════════ */}
+            <div className="mt-8 border-l-2 border-amber-400/40 pl-5">
+              <p className="text-xs uppercase tracking-[0.15em] text-amber-400">
+                C'est pour toi si
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
+                  <span>Tu veux démarrer ton business cleaning sans tourner en rond</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
+                  <span>Tu as déjà des clients et tu veux structurer pour scaler</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
+                  <span>Tu veux un plan personnalisé et un vrai suivi</span>
+                </li>
+              </ul>
+            </div>
 
             {/* Prix */}
             <div className="mt-10 flex flex-wrap items-baseline gap-x-4 gap-y-2">
@@ -73,7 +99,7 @@ export default function FeaturedOffer() {
               Paiement en 3x sans frais disponible
             </p>
 
-            {/* Encart urgence très discret */}
+            {/* Urgence */}
             <div className="mt-8 flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
               <span className="text-sm text-zinc-400">
@@ -83,7 +109,7 @@ export default function FeaturedOffer() {
               </span>
             </div>
 
-            {/* CTA principal — WhatsApp */}
+            {/* CTA principal */}
             <div className="mt-10">
               <a
                 href={offer.ctaHref}
@@ -129,7 +155,7 @@ export default function FeaturedOffer() {
               ))}
             </ul>
 
-            {/* Note garantie discrète */}
+            {/* Garantie */}
             <div className="mt-10 border-t border-white/5 pt-6">
               <p className="text-xs uppercase tracking-[0.15em] text-zinc-600">
                 Garantie
