@@ -1,26 +1,199 @@
+/* src/app/globals.css */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ————————————————————————————————————————
+   THEME TOKENS (Tailwind v4)
+   ———————————————————————————————————————— */
+@theme {
+  /* Couleurs de marque */
+  --color-brand-bg: #0b0f17;
+  --color-brand-bg-deep: #080b12;
+  --color-brand-surface: rgba(255, 255, 255, 0.03);
+  --color-brand-border: rgba(255, 255, 255, 0.1);
+
+  /* Or / Bronze */
+  --color-gold-50: #fef9e7;
+  --color-gold-100: #fdf0c3;
+  --color-gold-200: #fbe28a;
+  --color-gold-300: #f9d24f;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #e5a30d;
+  --color-gold-600: #c47f0a;
+
+  /* Rose (boutique secondaire) */
+  --color-rose-accent: #f9a8d4;
+
+  /* Typographies */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Rayons personnalisés */
+  --radius-4xl: 2rem;
+
+  /* Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
+
+  /* Ombres premium */
+  --shadow-glow-gold: 0 0 40px rgba(251, 191, 36, 0.25);
+  --shadow-glow-gold-lg: 0 0 60px rgba(251, 191, 36, 0.4);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ————————————————————————————————————————
+   KEYFRAMES
+   ———————————————————————————————————————— */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ————————————————————————————————————————
+   BASE STYLES
+   ———————————————————————————————————————— */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-brand-bg);
+    color: #e2e8f0;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Focus visible accessible & luxueux */
+  *:focus-visible {
+    outline: 2px solid var(--color-gold-400);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Scrollbar premium */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 8px;
+    border: 2px solid var(--color-brand-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #1e293b var(--color-brand-bg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ————————————————————————————————————————
+   COMPOSANTS UTILITAIRES
+   ———————————————————————————————————————— */
+@layer components {
+  /* Carte glassmorphism premium */
+  .glass-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Bouton doré principal */
+  .btn-gold {
+    background: linear-gradient(
+      135deg,
+      var(--color-gold-400) 0%,
+      var(--color-gold-500) 100%
+    );
+    color: var(--color-brand-bg);
+    box-shadow: var(--shadow-glow-gold);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-gold:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-glow-gold-lg);
+  }
+
+  /* Bouton ghost */
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+  }
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(251, 191, 36, 0.4);
+  }
+
+  /* Texte gradient or */
+  .text-gradient-gold {
+    background: linear-gradient(
+      90deg,
+      var(--color-gold-200) 0%,
+      var(--color-gold-400) 50%,
+      var(--color-gold-200) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Halo lumineux décoratif */
+  .halo-gold {
+    background: radial-gradient(
+      circle,
+      rgba(251, 191, 36, 0.15) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+/* ————————————————————————————————————————
+   UTILITIES PERSONNALISÉES
+   ———————————————————————————————————————— */
+@layer utilities {
+  /* Masquage du débordement horizontal (mobile) */
+  .overflow-x-clip {
+    overflow-x: clip;
+  }
+
+  /* Anti-aliasing forcé sur les titres */
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* ————————————————————————————————————————
+   ACCESSIBILITÉ : reduce motion
+   ———————————————————————————————————————— */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
