@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 /* ═══════════════════════════════════════════════
-   NAVIGATION — Liens avec préfixe / pour multi-pages
+   NAVIGATION
    ═══════════════════════════════════════════════ */
 const LINKS = [
   { label: "À propos", href: "/#about" },
@@ -23,14 +23,14 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  /* Détection du scroll pour afficher le fond flouté */
+  /* Détection scroll */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Ferme le menu mobile quand on change de page */
+  /* Ferme le menu mobile au changement de page */
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -43,7 +43,6 @@ export default function Navbar() {
     };
   }, [open]);
 
-  /* Vérifie si un lien est actif */
   const isActive = (href: string) => {
     if (href === "/boutique") return pathname === "/boutique";
     return false;
@@ -53,37 +52,36 @@ export default function Navbar() {
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
         scrolled || open
-          ? "border-b border-white/8 bg-[#08090d]/85 backdrop-blur-xl"
+          ? "border-b border-white/8 bg-[#08090d]/90 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        {/* ═══════════════════════════════════════════
-            LOGO
-            ═══════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════
+          BARRE PRINCIPALE
+          ═══════════════════════════════════════════ */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 sm:py-5">
+        {/* ─── LOGO ─── */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/logo.jpg"
+            src="/logo.jpeg"
             alt="Entreprendre Sans Filtre"
-            width={140}
-            height={36}
-            className="h-8 w-auto object-contain"
+            width={180}
+            height={48}
+            className="h-10 w-auto object-contain sm:h-11 lg:h-12"
             priority
           />
         </Link>
 
-        {/* ═══════════════════════════════════════════
-            NAV DESKTOP
-            ═══════════════════════════════════════════ */}
-        <nav className="hidden items-center gap-9 lg:flex">
+        {/* ─── NAV DESKTOP ─── */}
+        <nav className="hidden items-center gap-10 lg:flex">
           {LINKS.map((l) => (
             <Link
               key={l.label}
               href={l.href}
-              className={`text-sm font-medium transition-colors duration-200 ${
+              className={`text-base font-medium transition-colors duration-200 ${
                 isActive(l.href)
                   ? "text-white"
-                  : "text-zinc-400 hover:text-white"
+                  : "text-zinc-300 hover:text-white"
               }`}
             >
               {l.label}
@@ -91,56 +89,64 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* ═══════════════════════════════════════════
-            CTA DESKTOP + BURGER MOBILE
-            ═══════════════════════════════════════════ */}
+        {/* ─── CTA DESKTOP + BURGER ─── */}
         <div className="flex items-center gap-3">
           <Link
             href="/#recommender"
-            className="hidden items-center rounded-full bg-linear-to-br from-amber-300 to-amber-600 px-5 py-2.5 text-xs font-semibold text-[#08090d] transition-all duration-200 hover:from-amber-200 hover:to-amber-500 sm:inline-flex"
+            className="hidden items-center rounded-full bg-linear-to-br from-amber-300 to-amber-600 px-6 py-3 text-sm font-semibold text-[#08090d] transition-all duration-200 hover:from-amber-200 hover:to-amber-500 sm:inline-flex"
           >
             Trouver mon offre
           </Link>
 
           <button
             onClick={() => setOpen(!open)}
-            className="rounded-lg p-2 text-white transition-colors duration-200 hover:bg-white/5 lg:hidden"
+            className="rounded-lg p-2.5 text-white transition-colors duration-200 hover:bg-white/5 lg:hidden"
             aria-label="Ouvrir le menu"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
       {/* ═══════════════════════════════════════════
-          MENU MOBILE
+          MENU MOBILE — Plein écran, gros textes
           ═══════════════════════════════════════════ */}
       {open && (
-        <div className="border-t border-white/8 bg-[#08090d]/98 backdrop-blur-xl lg:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-6">
-            {LINKS.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-lg px-3 py-3 text-sm font-medium transition-colors duration-200 ${
-                  isActive(l.href)
-                    ? "bg-white/[0.05] text-white"
-                    : "text-zinc-400 hover:bg-white/[0.03] hover:text-white"
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
+        <div className="fixed inset-0 top-[72px] z-40 bg-[#08090d]/98 backdrop-blur-2xl lg:hidden">
+          <nav className="mx-auto flex h-full max-w-7xl flex-col px-6 py-8">
+            {/* Liens principaux */}
+            <div className="flex flex-col gap-1">
+              {LINKS.map((l, i) => (
+                <Link
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center justify-between rounded-xl px-4 py-5 text-xl font-medium transition-colors duration-200 ${
+                    isActive(l.href)
+                      ? "bg-white/[0.05] text-white"
+                      : "text-zinc-200 hover:bg-white/[0.04] hover:text-white"
+                  }`}
+                  style={{ animationDelay: `${i * 40}ms` }}
+                >
+                  <span>{l.label}</span>
+                  <ArrowRight className="h-5 w-5 text-zinc-600" />
+                </Link>
+              ))}
+            </div>
 
-            {/* CTA dans le menu mobile */}
-            <Link
-              href="/#recommender"
-              onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center rounded-full bg-linear-to-br from-amber-300 to-amber-600 px-5 py-3.5 text-sm font-semibold text-[#08090d] transition-all duration-200 hover:from-amber-200 hover:to-amber-500"
-            >
-              Trouver mon offre
-            </Link>
+            {/* CTA principal en bas */}
+            <div className="mt-auto pt-8">
+              <Link
+                href="/#recommender"
+                onClick={() => setOpen(false)}
+                className="flex w-full items-center justify-center rounded-full bg-linear-to-br from-amber-300 to-amber-600 px-6 py-5 text-base font-semibold text-[#08090d] transition-all duration-200"
+              >
+                Trouver mon offre
+              </Link>
+              <p className="mt-4 text-center text-xs uppercase tracking-[0.2em] text-zinc-600">
+                Entreprendre Sans Filtre
+              </p>
+            </div>
           </nav>
         </div>
       )}

@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   FaYoutube,
   FaTiktok,
@@ -11,17 +12,22 @@ import {
 } from "react-icons/fa";
 
 /* ═══════════════════════════════════════════════
-   NAVIGATION
+   NAVIGATION — Avec préfixe / pour multi-pages
    ═══════════════════════════════════════════════ */
 const NAVIGATION = [
-  { label: "À propos", href: "#about" },
-  { label: "Recommandateur", href: "#recommender" },
-  { label: "Accompagnement 45J", href: "#featured" },
-  { label: "Catalogue", href: "#catalog" },
-  { label: "FAQ", href: "#faq" },
+  { label: "À propos", href: "/#about", external: false },
+  { label: "Recommandateur", href: "/#recommender", external: false },
+  { label: "Accompagnement 45J", href: "/#featured", external: false },
+  { label: "Catalogue", href: "/#catalog", external: false },
+  { label: "FAQ", href: "/#faq", external: false },
 ];
 
 const RESOURCES = [
+  {
+    label: "Boutique",
+    href: "/boutique",
+    external: false,
+  },
   {
     label: "Chaîne YouTube",
     href: "https://www.youtube.com/@entreprendresansfiltre0",
@@ -75,16 +81,16 @@ export default function Footer() {
           {/* ─── Colonne 1 : Logo + description ─── */}
           <div>
             {/* Logo */}
-            <a href="#" className="inline-block">
+            <Link href="/" className="inline-block">
               <Image
                 src="/logo.jpeg"
                 alt="Entreprendre Sans Filtre"
-                width={160}
-                height={40}
-                className="h-9 w-auto object-contain"
+                width={180}
+                height={48}
+                className="h-10 w-auto object-contain sm:h-11"
                 priority={false}
               />
-            </a>
+            </Link>
 
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-zinc-500">
               L'écosystème business de Gerlicia — 37 employés à Ottawa,
@@ -106,12 +112,23 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               {NAVIGATION.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-zinc-400 transition-colors duration-200 hover:text-white"
-                  >
-                    {link.label}
-                  </a>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-400 transition-colors duration-200 hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-zinc-400 transition-colors duration-200 hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -125,14 +142,23 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               {RESOURCES.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className="text-zinc-400 transition-colors duration-200 hover:text-white"
-                  >
-                    {link.label}
-                  </a>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-400 transition-colors duration-200 hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-zinc-400 transition-colors duration-200 hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -155,7 +181,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-zinc-500 transition-colors duration-200 hover:text-amber-400"
                 >
-                  <s.icon className="h-4 w-4" />
+                  <s.icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
@@ -192,15 +218,24 @@ export default function Footer() {
             réservés.
           </p>
           <div className="flex flex-wrap items-center gap-6 text-xs text-zinc-600">
-            <a href="#" className="transition-colors duration-200 hover:text-white">
+            <Link
+              href="#"
+              className="transition-colors duration-200 hover:text-white"
+            >
               Mentions légales
-            </a>
-            <a href="#" className="transition-colors duration-200 hover:text-white">
+            </Link>
+            <Link
+              href="#"
+              className="transition-colors duration-200 hover:text-white"
+            >
               Confidentialité
-            </a>
-            <a href="#" className="transition-colors duration-200 hover:text-white">
+            </Link>
+            <Link
+              href="#"
+              className="transition-colors duration-200 hover:text-white"
+            >
               Conditions
-            </a>
+            </Link>
           </div>
         </div>
       </div>
