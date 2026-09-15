@@ -58,7 +58,7 @@ export const shopProducts: ShopProduct[] = [
     compareAtPrice: 120,
     priceLabel: "CA$89",
     image:
-      "https://images.unsplash.com/photo-1602874801007-aa29a9e0e7c2?w=900&q=85&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=900&q=85&auto=format&fit=crop",
     category: "Rituel & Bien-être",
     badge: "Édition limitée",
     highlights: [
