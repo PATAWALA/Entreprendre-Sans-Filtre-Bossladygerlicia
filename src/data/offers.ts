@@ -1,17 +1,19 @@
 // src/data/offers.ts
 export type OfferCategory =
-  | "Livres & Outils"
   | "Formations"
   | "Accompagnement"
-  | "Consultations";
+  | "Consultations"
+  | "Documents & Livres";
 
-export type OfferTag = "Débutant" | "Formation" | "High-Ticket";
+export type OfferTag = "Débutant" | "Formation" | "High-Ticket" | "Ressource";
 
 export interface Offer {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
   price: number;
+  compareAtPrice?: number;
   priceLabel: string;
   category: OfferCategory;
   tags: OfferTag[];
@@ -20,139 +22,213 @@ export interface Offer {
   ctaHref: string;
   featured?: boolean;
   badge?: string;
+  mode?: "En ligne" | "Présentiel Ottawa" | "Mixte";
 }
 
 export const offers: Offer[] = [
-  // ————— LIVRES & OUTILS —————
+  // ───────── FORMATIONS ─────────
   {
-    id: "ebook-demarrer",
-    title: "Ebook — Démarrer son business cleaning",
+    id: "formation-cleaning-a-z",
+    title: "Formation Cleaning de A à Z",
+    subtitle: "En ligne — accès 45 jours",
     description:
-      "Le guide essentiel pour lancer ton entreprise de cleaning en 30 jours, sans diplôme et sans gros budget.",
-    price: 9.99,
-    priceLabel: "9,99 $",
-    category: "Livres & Outils",
-    tags: ["Débutant"],
-    highlights: [
-      "Plan d'action 30 jours",
-      "Templates de devis & factures",
-      "Checklist matériel de départ",
-    ],
-    ctaLabel: "Obtenir l'ebook",
-    ctaHref: "#",
-  },
-  {
-    id: "kit-templates",
-    title: "Kit Templates Pro Cleaning",
-    description:
-      "Pack complet de documents professionnels prêts à l'emploi pour structurer ton activité.",
-    price: 29,
-    priceLabel: "29 $",
-    category: "Livres & Outils",
-    tags: ["Débutant", "Formation"],
-    highlights: [
-      "Contrats clients & employés",
-      "Grilles tarifaires modulables",
-      "Scripts de prospection",
-    ],
-    ctaLabel: "Télécharger le kit",
-    ctaHref: "#",
-  },
-
-  // ————— FORMATIONS —————
-  {
-    id: "formation-cleaning-pro",
-    title: "Formation Cleaning Pro",
-    description:
-      "La méthode complète pour maîtriser les techniques pros du nettoyage résidentiel et commercial.",
-    price: 197,
-    priceLabel: "197 $",
+      "Formation complète + 50+ documents professionnels + vidéo accessible pendant 45 jours.",
+    price: 697,
+    priceLabel: "CA$697",
     category: "Formations",
     tags: ["Formation"],
     highlights: [
-      "12 modules vidéo",
-      "Techniques produits & matériel",
-      "Certification interne",
+      "50+ documents professionnels inclus",
+      "Accès vidéo 45 jours",
+      "Techniques cleaning résidentiel & commercial",
     ],
-    ctaLabel: "Rejoindre la formation",
+    ctaLabel: "Accéder à la formation",
     ctaHref: "#",
+    mode: "En ligne",
+    badge: "Best-seller",
   },
   {
-    id: "formation-business-cleaning",
-    title: "Business Cleaning Academy",
+    id: "formation-45j-accompagnement",
+    title: "Formation + 45 Jours d'Accompagnement",
+    subtitle: "Formation + Coaching hybride",
     description:
-      "Transforme ton savoir-faire en entreprise rentable : acquisition, équipe, process et scaling.",
-    price: 397,
-    priceLabel: "397 $",
+      "Apprends à lancer, structurer et développer ton entreprise de nettoyage, puis passe à l'action avec un suivi personnalisé.",
+    price: 2000,
+    priceLabel: "CA$2,000",
     category: "Formations",
     tags: ["Formation", "High-Ticket"],
     highlights: [
-      "Stratégie d'acquisition TikTok",
-      "Recrutement & management d'équipe",
-      "Process internes clés en main",
+      "Formation complète incluse",
+      "45 jours d'accompagnement personnalisé",
+      "Documents & templates pros",
     ],
-    ctaLabel: "Découvrir la formation",
+    ctaLabel: "Je m'inscris",
     ctaHref: "#",
-    badge: "Populaire",
+    mode: "Mixte",
+  },
+  {
+    id: "formation-intensive-3j",
+    title: "Formation Intensive Business du Nettoyage",
+    subtitle: "3 jours — Ottawa & International",
+    description:
+      "Théorie • Pratique • Accompagnement — immersion totale pour transformer ton business.",
+    price: 3500,
+    priceLabel: "CA$3,500",
+    category: "Formations",
+    tags: ["High-Ticket"],
+    highlights: [
+      "3 jours intensifs en présentiel",
+      "Théorie + pratique + coaching",
+      "Réseau d'entrepreneurs cleaning",
+    ],
+    ctaLabel: "Réserver ma place",
+    ctaHref: "#",
+    mode: "Présentiel Ottawa",
+    badge: "Immersion",
   },
 
-  // ————— ACCOMPAGNEMENT HIGH-TICKET —————
+  // ───────── ACCOMPAGNEMENT ─────────
   {
     id: "accompagnement-45j",
-    title: "Accompagnement Stratégique 45 Jours",
+    title: "Accompagnement Stratégique — 45 Jours",
     description:
-      "Un accompagnement intensif et personnalisé pour structurer, lancer et scaler ton business cleaning.",
+      "Vous avez suivi une formation. Maintenant, il est temps de passer à l'action.",
     price: 1297,
-    priceLabel: "1 297 $",
+    compareAtPrice: 1597,
+    priceLabel: "CA$1,297",
     category: "Accompagnement",
     tags: ["High-Ticket"],
     highlights: [
-      "6 sessions privées avec Bossladygerlicia",
-      "Plan d'action business sur-mesure",
-      "Accès à vie à la Business Cleaning Academy",
-      "Groupe privé WhatsApp",
-      "Audit de ton positionnement & offres",
+      "6 sessions privées avec Gerlicia",
+      "Plan d'action sur-mesure",
+      "Audit complet positionnement & offres",
+      "Groupe privé + accès WhatsApp direct",
+      "Accès à vie à la Business Academy",
     ],
-    ctaLabel: "Réserver ma place (10 restantes)",
+    ctaLabel: "Réserver mon accompagnement",
     ctaHref: "#",
     featured: true,
     badge: "Programme Signature",
-  },
-  {
-    id: "accompagnement-vip",
-    title: "Accompagnement VIP 6 Mois",
-    description:
-      "Immersion totale : je deviens ta directrice stratégique pendant 6 mois pour faire décoller ton entreprise.",
-    price: 3500,
-    priceLabel: "3 500 $",
-    category: "Accompagnement",
-    tags: ["High-Ticket"],
-    highlights: [
-      "12 sessions privées + accès illimité",
-      "Construction de ton équipe (jusqu'à 10 personnes)",
-      "Dashboard KPI personnalisé",
-      "Ligne directe 6j/7",
-    ],
-    ctaLabel: "Candidater au VIP",
-    ctaHref: "#",
+    mode: "En ligne",
   },
 
-  // ————— CONSULTATIONS —————
+  // ───────── CONSULTATIONS ─────────
   {
-    id: "consultation-60",
-    title: "Consultation Stratégique (60 min)",
+    id: "consultation-croissance",
+    title: "Consultation Stratégique Entreprise",
+    subtitle: "Pour entreprises de nettoyage déjà lancées",
     description:
-      "Un appel privé d'une heure pour débloquer un point précis de ton business.",
-    price: 149,
-    priceLabel: "149 $",
+      "Ton entreprise est lancée, mais tu te sens bloquée dans ta croissance ? Débloquons ensemble.",
+    price: 397,
+    compareAtPrice: 497,
+    priceLabel: "CA$397",
     category: "Consultations",
     tags: ["Formation", "High-Ticket"],
     highlights: [
-      "60 minutes en visio",
-      "Plan d'action écrit livré après l'appel",
-      "Enregistrement de la session",
+      "Audit de ton business actuel",
+      "Stratégie de croissance sur 90 jours",
+      "Plan d'action écrit livré",
     ],
     ctaLabel: "Réserver ma consultation",
     ctaHref: "#",
+    mode: "En ligne",
+  },
+  {
+    id: "appel-coaching-60",
+    title: "Appel coaching privé — 60 minutes",
+    subtitle: "Séance personnalisée",
+    description:
+      "Une heure en visio pour débloquer un point précis de ton business.",
+    price: 127,
+    compareAtPrice: 149.99,
+    priceLabel: "CA$127",
+    category: "Consultations",
+    tags: ["Formation"],
+    highlights: [
+      "60 minutes en visio privée",
+      "Plan d'action écrit après l'appel",
+      "Enregistrement fourni",
+    ],
+    ctaLabel: "Réserver mon appel",
+    ctaHref: "#",
+    mode: "En ligne",
+  },
+  {
+    id: "appel-decouverte-10",
+    title: "Parlez avec moi — 10 minutes",
+    subtitle: "Appel découverte gratuit",
+    description:
+      "Tu ne sais pas quelle offre choisir ? Parlons-en rapidement.",
+    price: 9.99,
+    priceLabel: "CA$9.99",
+    category: "Consultations",
+    tags: ["Débutant"],
+    highlights: [
+      "10 minutes pour clarifier ton besoin",
+      "Orientation vers la bonne offre",
+      "Sans engagement",
+    ],
+    ctaLabel: "Réserver",
+    ctaHref: "#",
+    mode: "En ligne",
+  },
+
+  // ───────── DOCUMENTS & LIVRES ─────────
+  {
+    id: "pack-documents",
+    title: "Pack 50+ Documents & Livre PDF — Cleaning",
+    description:
+      "Les outils professionnels uniquement, sans la vidéo de formation.",
+    price: 137,
+    compareAtPrice: 197,
+    priceLabel: "CA$137",
+    category: "Documents & Livres",
+    tags: ["Ressource", "Débutant"],
+    highlights: [
+      "50+ documents pros prêts à l'emploi",
+      "Livre PDF complet inclus",
+      "Contrats, devis, factures, scripts",
+    ],
+    ctaLabel: "Obtenir mes documents",
+    ctaHref: "#",
+    mode: "En ligne",
+    badge: "Économise CA$60",
+  },
+  {
+    id: "livre-business-cleaning",
+    title: "Le Livre Complet du Business de Nettoyage",
+    description:
+      "Comment lancer, structurer et faire grandir ton entreprise de nettoyage.",
+    price: 67,
+    compareAtPrice: 97,
+    priceLabel: "CA$67",
+    category: "Documents & Livres",
+    tags: ["Ressource", "Débutant"],
+    highlights: [
+      "Guide complet pas à pas",
+      "Stratégies testées terrain",
+      "Lecture immédiate (PDF)",
+    ],
+    ctaLabel: "Obtenir le livre",
+    ctaHref: "#",
+    mode: "En ligne",
+  },
+  {
+    id: "video-personnalisee",
+    title: "Pose-moi 1 à 3 questions — Réponse vidéo personnalisée",
+    description:
+      "Pose tes 3 questions & reçois une vidéo personnalisée réalisée par Gerlicia.",
+    price: 27,
+    priceLabel: "CA$27",
+    category: "Consultations",
+    tags: ["Débutant"],
+    highlights: [
+      "Jusqu'à 3 questions",
+      "Vidéo personnalisée (5-10 min)",
+      "Réponse sous 72h",
+    ],
+    ctaLabel: "Recevoir ma vidéo",
+    ctaHref: "#",
+    mode: "En ligne",
   },
 ];

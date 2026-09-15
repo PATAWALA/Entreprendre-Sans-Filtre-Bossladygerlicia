@@ -1,54 +1,82 @@
 /* src/app/globals.css */
 @import "tailwindcss";
 
-/* ————————————————————————————————————————
-   THEME TOKENS (Tailwind v4)
-   ———————————————————————————————————————— */
+/* ═══════════════════════════════════════════════
+   THEME TOKENS — Tailwind v4
+   Palette : Bleu nuit + Orange dégradé + Or
+   ═══════════════════════════════════════════════ */
 @theme {
-  /* Couleurs de marque */
-  --color-brand-bg: #0b0f17;
-  --color-brand-bg-deep: #080b12;
-  --color-brand-surface: rgba(255, 255, 255, 0.03);
-  --color-brand-border: rgba(255, 255, 255, 0.1);
+  /* ————— FONDS BLEU NUIT ————— */
+  --color-night-950: #060912;
+  --color-night-900: #0a0e1a;   /* Fond principal */
+  --color-night-850: #0d1320;
+  --color-night-800: #0d1524;   /* Fond secondaire */
+  --color-night-700: #131c30;
 
-  /* Or / Bronze */
-  --color-gold-50: #fef9e7;
-  --color-gold-100: #fdf0c3;
-  --color-gold-200: #fbe28a;
-  --color-gold-300: #f9d24f;
+  /* ————— ORANGE DÉGRADÉ (ACCENT PRINCIPAL) ————— */
+  --color-ember-50: #fff7ed;
+  --color-ember-100: #ffedd5;
+  --color-ember-200: #fed7aa;
+  --color-ember-300: #fdba74;
+  --color-ember-400: #fb923c;   /* Orange clair */
+  --color-ember-500: #f97316;   /* Orange moyen */
+  --color-ember-600: #ea580c;   /* Orange profond */
+  --color-ember-700: #c2410c;
+
+  /* ————— OR / AMBRE (HIGHLIGHTS) ————— */
+  --color-gold-300: #fcd34d;
   --color-gold-400: #fbbf24;
-  --color-gold-500: #e5a30d;
-  --color-gold-600: #c47f0a;
+  --color-gold-500: #f59e0b;
 
-  /* Rose (boutique secondaire) */
-  --color-rose-accent: #f9a8d4;
+  /* ————— NEUTRES ————— */
+  --color-ink-100: #f1f5f9;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
 
-  /* Typographies */
+  /* ————— TYPOGRAPHIE ————— */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  /* Rayons personnalisés */
+  /* ————— RAYONS ————— */
   --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
 
-  /* Animations */
+  /* ————— OMBRES PREMIUM ————— */
+  --shadow-ember: 0 10px 40px -10px rgba(249, 115, 22, 0.35);
+  --shadow-ember-lg: 0 20px 60px -15px rgba(249, 115, 22, 0.5);
+  --shadow-night: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+
+  /* ————— ANIMATIONS ————— */
+  --animate-glow: glow 3s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulse 3s ease-in-out infinite;
-
-  /* Ombres premium */
-  --shadow-glow-gold: 0 0 40px rgba(251, 191, 36, 0.25);
-  --shadow-glow-gold-lg: 0 0 60px rgba(251, 191, 36, 0.4);
 }
 
-/* ————————————————————————————————————————
+/* ═══════════════════════════════════════════════
    KEYFRAMES
-   ———————————————————————————————————————— */
+   ═══════════════════════════════════════════════ */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 30px -5px rgba(249, 115, 22, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 50px -5px rgba(249, 115, 22, 0.55);
+  }
+}
+
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
+  0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
 }
 
-/* ————————————————————————————————————————
-   BASE STYLES
-   ———————————————————————————————————————— */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════ */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -57,19 +85,25 @@
   }
 
   body {
-    background-color: var(--color-brand-bg);
-    color: #e2e8f0;
+    background-color: var(--color-night-900);
+    color: var(--color-ink-300);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  /* Focus visible accessible & luxueux */
+  /* Titres par défaut */
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  /* Focus accessible + luxueux */
   *:focus-visible {
-    outline: 2px solid var(--color-gold-400);
-    outline-offset: 2px;
-    border-radius: 4px;
+    outline: 2px solid var(--color-ember-500);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   /* Scrollbar premium */
@@ -78,76 +112,173 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-brand-bg);
+    background: var(--color-night-950);
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: linear-gradient(
+      180deg,
+      var(--color-ember-600),
+      var(--color-ember-500)
+    );
     border-radius: 8px;
-    border: 2px solid var(--color-brand-bg);
+    border: 2px solid var(--color-night-950);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: linear-gradient(
+      180deg,
+      var(--color-ember-500),
+      var(--color-ember-400)
+    );
   }
 
   /* Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #1e293b var(--color-brand-bg);
+    scrollbar-color: var(--color-ember-500) var(--color-night-950);
+  }
+
+  /* Sélection de texte */
+  ::selection {
+    background: rgba(249, 115, 22, 0.3);
+    color: #fff;
   }
 }
 
-/* ————————————————————————————————————————
+/* ═══════════════════════════════════════════════
    COMPOSANTS UTILITAIRES
-   ———————————————————————————————————————— */
+   ═══════════════════════════════════════════════ */
 @layer components {
-  /* Carte glassmorphism premium */
+  /* ——— Carte glassmorphism bleu nuit ——— */
   .glass-card {
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0.01) 100%
+      rgba(19, 28, 48, 0.7) 0%,
+      rgba(13, 21, 36, 0.4) 100%
     );
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .glass-card:hover {
+    border-color: rgba(249, 115, 22, 0.3);
   }
 
-  /* Bouton doré principal */
-  .btn-gold {
+  /* ——— Carte avec bordure orange dégradée (signature) ——— */
+  .ember-card {
+    position: relative;
     background: linear-gradient(
       135deg,
-      var(--color-gold-400) 0%,
-      var(--color-gold-500) 100%
+      rgba(19, 28, 48, 0.8) 0%,
+      rgba(13, 21, 36, 0.5) 100%
     );
-    color: var(--color-brand-bg);
-    box-shadow: var(--shadow-glow-gold);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-4xl);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+    transition: all 0.4s ease;
   }
-  .btn-gold:hover {
-    transform: scale(1.03);
-    box-shadow: var(--shadow-glow-gold-lg);
+  .ember-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(249, 115, 22, 0.5) 0%,
+      rgba(251, 146, 60, 0.1) 40%,
+      transparent 70%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .ember-card:hover::before {
+    opacity: 1;
+  }
+  .ember-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-ember);
   }
 
-  /* Bouton ghost */
+  /* ——— Bouton principal orange dégradé ——— */
+  .btn-ember {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #ffffff;
+    border-radius: 9999px;
+    background: linear-gradient(
+      135deg,
+      var(--color-ember-500) 0%,
+      var(--color-ember-600) 100%
+    );
+    box-shadow: var(--shadow-ember);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-ember::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+  .btn-ember:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-ember-lg);
+  }
+  .btn-ember:hover::after {
+    left: 100%;
+  }
+
+  /* ——— Bouton ghost (secondaire) ——— */
   .btn-ghost {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #ffffff;
+    border-radius: 9999px;
+    background: rgba(148, 163, 184, 0.05);
+    border: 1px solid rgba(148, 163, 184, 0.15);
     backdrop-filter: blur(10px);
     transition: all 0.25s ease;
   }
   .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(251, 191, 36, 0.4);
+    background: rgba(249, 115, 22, 0.1);
+    border-color: rgba(249, 115, 22, 0.4);
+    color: var(--color-ember-300);
   }
 
-  /* Texte gradient or */
-  .text-gradient-gold {
+  /* ——— Texte gradient orange ——— */
+  .text-ember {
     background: linear-gradient(
-      90deg,
-      var(--color-gold-200) 0%,
-      var(--color-gold-400) 50%,
-      var(--color-gold-200) 100%
+      135deg,
+      var(--color-ember-300) 0%,
+      var(--color-ember-500) 50%,
+      var(--color-ember-400) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -155,38 +286,106 @@
     color: transparent;
   }
 
-  /* Halo lumineux décoratif */
-  .halo-gold {
+  /* ——— Texte gradient or (pour accents speciaux) ——— */
+  .text-gold {
+    background: linear-gradient(
+      135deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-400) 50%,
+      var(--color-gold-500) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* ——— Badge avec point pulsé ——— */
+  .badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 9999px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    color: var(--color-ember-300);
+  }
+  .badge-live::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-ember-400);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* ——— Divider orange ——— */
+  .divider-ember {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(249, 115, 22, 0.5),
+      transparent
+    );
+  }
+
+  /* ——— Halo lumineux décoratif ——— */
+  .halo-ember {
     background: radial-gradient(
       circle,
-      rgba(251, 191, 36, 0.15) 0%,
+      rgba(249, 115, 22, 0.15) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  .halo-night {
+    background: radial-gradient(
+      circle,
+      rgba(13, 21, 36, 0.8) 0%,
       transparent 70%
     );
     pointer-events: none;
   }
 }
 
-/* ————————————————————————————————————————
-   UTILITIES PERSONNALISÉES
-   ———————————————————————————————————————— */
+/* ═══════════════════════════════════════════════
+   UTILITAIRES
+   ═══════════════════════════════════════════════ */
 @layer utilities {
-  /* Masquage du débordement horizontal (mobile) */
-  .overflow-x-clip {
-    overflow-x: clip;
-  }
-
-  /* Anti-aliasing forcé sur les titres */
   .text-balance {
     text-wrap: balance;
   }
   .text-pretty {
     text-wrap: pretty;
   }
+  .overflow-x-clip {
+    overflow-x: clip;
+  }
+
+  /* Grille lumineuse subtile en arrière-plan */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Effet grain premium */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
 }
 
-/* ————————————————————————————————————————
-   ACCESSIBILITÉ : reduce motion
-   ———————————————————————————————————————— */
+/* ═══════════════════════════════════════════════
+   ACCESSIBILITÉ
+   ═══════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
