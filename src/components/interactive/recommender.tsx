@@ -3,16 +3,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Target,
-  Wallet,
-  GraduationCap,
-  ArrowRight,
-  RotateCcw,
-  Check,
-} from "lucide-react";
+import { ArrowRight, RotateCcw } from "lucide-react";
 import { offers, type Offer } from "@/data/offers";
 
+/* ═══════════════════════════════════════════════
+   TYPES
+   ═══════════════════════════════════════════════ */
 type Goal = "demarrer" | "structurer" | "scaler";
 type Budget = "petit" | "moyen" | "eleve";
 type Level = "debutant" | "intermediaire" | "avance";
@@ -23,10 +19,13 @@ interface Answers {
   level?: Level;
 }
 
+/* ═══════════════════════════════════════════════
+   QUESTIONS
+   ═══════════════════════════════════════════════ */
 const QUESTIONS = [
   {
     id: "goal" as const,
-    icon: Target,
+    label: "Objectif",
     title: "Quel est ton objectif principal ?",
     options: [
       { value: "demarrer", label: "Démarrer mon business cleaning" },
@@ -36,7 +35,7 @@ const QUESTIONS = [
   },
   {
     id: "budget" as const,
-    icon: Wallet,
+    label: "Budget",
     title: "Quel budget peux-tu investir ?",
     options: [
       { value: "petit", label: "Moins de 50 $" },
@@ -46,7 +45,7 @@ const QUESTIONS = [
   },
   {
     id: "level" as const,
-    icon: GraduationCap,
+    label: "Niveau",
     title: "Ton niveau actuel ?",
     options: [
       { value: "debutant", label: "Débutant total" },
@@ -56,8 +55,10 @@ const QUESTIONS = [
   },
 ];
 
+/* ═══════════════════════════════════════════════
+   LOGIQUE DE RECOMMANDATION
+   ═══════════════════════════════════════════════ */
 function getRecommendation(a: Answers): Offer {
-  // High-ticket en priorité si budget élevé + objectif scaling
   if (a.budget === "eleve" && a.goal === "scaler") {
     return offers.find((o) => o.id === "accompagnement-vip")!;
   }
@@ -79,6 +80,9 @@ function getRecommendation(a: Answers): Offer {
   return offers.find((o) => o.id === "kit-templates")!;
 }
 
+/* ═══════════════════════════════════════════════
+   COMPOSANT
+   ═══════════════════════════════════════════════ */
 export default function Recommender() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -90,9 +94,9 @@ export default function Recommender() {
     const next = { ...answers, [current.id]: value } as Answers;
     setAnswers(next);
     if (step < QUESTIONS.length - 1) {
-      setTimeout(() => setStep(step + 1), 200);
+      setTimeout(() => setStep(step + 1), 180);
     } else {
-      setTimeout(() => setDone(true), 200);
+      setTimeout(() => setDone(true), 180);
     }
   };
 
@@ -107,120 +111,141 @@ export default function Recommender() {
   return (
     <section
       id="recommender"
-      className="relative overflow-hidden bg-[#0b0f17] py-20 sm:py-28"
+      className="relative overflow-hidden py-24 sm:py-32"
     >
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400/5 blur-[120px]" />
-
-      <div className="relative mx-auto max-w-3xl px-6">
-        <div className="mb-12 text-center">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
-            Recommandateur stratégique
-          </span>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
-            Quelle offre est faite pour toi ?
+      <div className="mx-auto max-w-3xl px-6">
+        {/* ═══════════════════════════════════════════
+            HEADER
+            ═══════════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 text-center"
+        >
+          <span className="eyebrow">Recommandateur</span>
+          <h2 className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+            Quelle offre est faite
+            <br className="hidden sm:block" />
+            <span className="text-accent"> pour toi ?</span>
           </h2>
-          <p className="mt-3 text-slate-400">
-            3 questions. 30 secondes. Une réponse sur-mesure.
+          <p className="mx-auto mt-5 max-w-md text-base text-zinc-500">
+            3 questions. 30 secondes. Une réponse précise.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl sm:p-10">
+        {/* ═══════════════════════════════════════════
+            ZONE INTERACTIVE
+            ═══════════════════════════════════════════ */}
+        <div className="relative">
           <AnimatePresence mode="wait">
             {!done ? (
               <motion.div
                 key={step}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* Barre de progression */}
-                <div className="mb-8 flex items-center gap-2">
-                  {QUESTIONS.map((_, i) => (
+                {/* Progression minimaliste */}
+                <div className="mb-12 flex items-center justify-center gap-2">
+                  {QUESTIONS.map((q, i) => (
                     <div
-                      key={i}
-                      className={`h-1.5 flex-1 rounded-full transition-all ${
-                        i <= step ? "bg-amber-400" : "bg-white/10"
+                      key={q.id}
+                      className={`h-px transition-all duration-500 ${
+                        i <= step
+                          ? "w-16 bg-linear-to-r from-amber-400/80 to-amber-500/40"
+                          : "w-8 bg-white/8"
                       }`}
                     />
                   ))}
                 </div>
 
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="rounded-xl bg-amber-400/10 p-2.5">
-                    <current.icon className="h-5 w-5 text-amber-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-white sm:text-2xl">
-                    {current.title}
-                  </h3>
-                </div>
+                {/* Label de l'étape */}
+                <p className="mb-4 text-center text-xs uppercase tracking-[0.2em] text-zinc-600">
+                  {current.label} — {step + 1}/{QUESTIONS.length}
+                </p>
 
+                {/* Question */}
+                <h3 className="mb-10 text-center text-2xl font-medium leading-tight tracking-tight text-white sm:text-3xl">
+                  {current.title}
+                </h3>
+
+                {/* Options */}
                 <div className="space-y-3">
-                  {current.options.map((opt) => (
-                    <button
+                  {current.options.map((opt, i) => (
+                    <motion.button
                       key={opt.value}
                       onClick={() => handleSelect(opt.value)}
-                      className="group flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-4 text-left text-white transition-all hover:border-amber-400/50 hover:bg-amber-400/5"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: i * 0.06,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      className="group flex w-full items-center justify-between rounded-full border border-white/8 bg-white/[0.015] px-6 py-5 text-left transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04]"
                     >
-                      <span className="font-medium">{opt.label}</span>
-                      <ArrowRight className="h-5 w-5 text-slate-500 transition-all group-hover:translate-x-1 group-hover:text-amber-400" />
-                    </button>
+                      <span className="text-base font-medium text-white sm:text-lg">
+                        {opt.label}
+                      </span>
+                      <ArrowRight className="h-4 w-4 flex-shrink-0 text-zinc-600 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-amber-400" />
+                    </motion.button>
                   ))}
                 </div>
-
-                <p className="mt-6 text-center text-xs text-slate-500">
-                  Question {step + 1} sur {QUESTIONS.length}
-                </p>
               </motion.div>
             ) : (
               <motion.div
                 key="result"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="text-center"
               >
-                <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-amber-300">
-                  <Check className="h-3.5 w-3.5" />
-                  Offre recommandée
+                {/* Eyebrow */}
+                <span className="eyebrow">Ton offre recommandée</span>
+
+                {/* Titre offre */}
+                <h3 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
+                  {recommendation?.title}
+                </h3>
+
+                {/* Description */}
+                <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-zinc-400">
+                  {recommendation?.description}
+                </p>
+
+                {/* Prix */}
+                <div className="mt-8">
+                  <div className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                    {recommendation?.priceLabel}
+                  </div>
+                  {recommendation?.compareAtPrice && (
+                    <div className="mt-1 text-sm text-zinc-600 line-through">
+                      CA$
+                      {recommendation.compareAtPrice.toLocaleString("fr-CA")}
+                    </div>
+                  )}
                 </div>
 
-                {recommendation && (
-                  <>
-                    <h3 className="text-2xl font-bold text-white sm:text-3xl">
-                      {recommendation.title}
-                    </h3>
-                    <p className="mx-auto mt-3 max-w-xl text-slate-300">
-                      {recommendation.description}
-                    </p>
-
-                    <div className="mx-auto mt-6 max-w-md rounded-2xl border border-amber-400/20 bg-gradient-to-br from-amber-400/10 to-transparent p-6">
-                      <div className="text-3xl font-bold text-amber-400">
-                        {recommendation.priceLabel}
-                      </div>
-                      <div className="mt-1 text-xs uppercase tracking-wider text-slate-400">
-                        {recommendation.category}
-                      </div>
-                    </div>
-
-                    <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                      <a
-                        href={recommendation.ctaHref}
-                        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-7 py-3.5 text-sm font-semibold text-[#0b0f17] shadow-lg shadow-amber-400/20 transition-all hover:scale-[1.03]"
-                      >
-                        {recommendation.ctaLabel}
-                        <ArrowRight className="h-4 w-4" />
-                      </a>
-                      <button
-                        onClick={reset}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-white/10"
-                      >
-                        <RotateCcw className="h-4 w-4" />
-                        Refaire le test
-                      </button>
-                    </div>
-                  </>
-                )}
+                {/* CTA principal */}
+                <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <a
+                    href={recommendation?.ctaHref}
+                    className="btn-primary group"
+                  >
+                    {recommendation?.ctaLabel}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                  <button
+                    onClick={reset}
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm text-zinc-500 transition-colors hover:text-white"
+                  >
+                    <RotateCcw className="h-3.5 w-3.5" />
+                    Refaire le test
+                  </button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

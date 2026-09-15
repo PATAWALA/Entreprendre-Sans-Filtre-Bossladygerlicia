@@ -25,6 +25,18 @@ export interface Offer {
   mode?: "En ligne" | "Présentiel Ottawa" | "Mixte";
 }
 
+/* ═══════════════════════════════════════════════
+   HELPER — Génère un lien WhatsApp avec message pré-rempli
+   ═══════════════════════════════════════════════ */
+const WHATSAPP_NUMBER = "16132867071";
+
+function whatsappLink(message: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+/* ═══════════════════════════════════════════════
+   OFFRES
+   ═══════════════════════════════════════════════ */
 export const offers: Offer[] = [
   // ───────── FORMATIONS ─────────
   {
@@ -43,7 +55,9 @@ export const offers: Offer[] = [
       "Techniques cleaning résidentiel & commercial",
     ],
     ctaLabel: "Accéder à la formation",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je suis intéressé(e) par la Formation Cleaning de A à Z (CA$697). Peux-tu m'en dire plus ?"
+    ),
     mode: "En ligne",
     badge: "Best-seller",
   },
@@ -63,7 +77,9 @@ export const offers: Offer[] = [
       "Documents & templates pros",
     ],
     ctaLabel: "Je m'inscris",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je suis intéressé(e) par la Formation + 45 Jours d'Accompagnement (CA$2,000). Peux-tu m'en dire plus ?"
+    ),
     mode: "Mixte",
   },
   {
@@ -82,7 +98,9 @@ export const offers: Offer[] = [
       "Réseau d'entrepreneurs cleaning",
     ],
     ctaLabel: "Réserver ma place",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je suis intéressé(e) par la Formation Intensive Business du Nettoyage (CA$3,500). Peux-tu m'en dire plus ?"
+    ),
     mode: "Présentiel Ottawa",
     badge: "Immersion",
   },
@@ -106,7 +124,9 @@ export const offers: Offer[] = [
       "Accès à vie à la Business Academy",
     ],
     ctaLabel: "Réserver mon accompagnement",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite réserver l'Accompagnement Stratégique 45 Jours (CA$1,297). Peux-tu m'envoyer les prochaines étapes ?"
+    ),
     featured: true,
     badge: "Programme Signature",
     mode: "En ligne",
@@ -130,11 +150,13 @@ export const offers: Offer[] = [
       "Plan d'action écrit livré",
     ],
     ctaLabel: "Réserver ma consultation",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite réserver une Consultation Stratégique Entreprise (CA$397). Peux-tu me proposer un créneau ?"
+    ),
     mode: "En ligne",
   },
   {
-    id: "appel-coaching-60",
+    id: "consultation-60",
     title: "Appel coaching privé — 60 minutes",
     subtitle: "Séance personnalisée",
     description:
@@ -150,13 +172,15 @@ export const offers: Offer[] = [
       "Enregistrement fourni",
     ],
     ctaLabel: "Réserver mon appel",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite réserver un Appel coaching privé de 60 minutes (CA$127). Peux-tu me proposer un créneau ?"
+    ),
     mode: "En ligne",
   },
   {
     id: "appel-decouverte-10",
     title: "Parlez avec moi — 10 minutes",
-    subtitle: "Appel découverte gratuit",
+    subtitle: "Appel découverte",
     description:
       "Tu ne sais pas quelle offre choisir ? Parlons-en rapidement.",
     price: 9.99,
@@ -169,7 +193,29 @@ export const offers: Offer[] = [
       "Sans engagement",
     ],
     ctaLabel: "Réserver",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite réserver un appel découverte de 10 minutes (CA$9.99). Peux-tu me proposer un créneau ?"
+    ),
+    mode: "En ligne",
+  },
+  {
+    id: "video-personnalisee",
+    title: "Pose-moi 1 à 3 questions — Réponse vidéo personnalisée",
+    description:
+      "Pose tes 3 questions & reçois une vidéo personnalisée réalisée par Gerlicia.",
+    price: 27,
+    priceLabel: "CA$27",
+    category: "Consultations",
+    tags: ["Débutant"],
+    highlights: [
+      "Jusqu'à 3 questions",
+      "Vidéo personnalisée (5-10 min)",
+      "Réponse sous 72h",
+    ],
+    ctaLabel: "Recevoir ma vidéo",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite recevoir une réponse vidéo personnalisée (CA$27). Voici mes questions :"
+    ),
     mode: "En ligne",
   },
 
@@ -190,7 +236,9 @@ export const offers: Offer[] = [
       "Contrats, devis, factures, scripts",
     ],
     ctaLabel: "Obtenir mes documents",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite obtenir le Pack 50+ Documents & Livre PDF Cleaning (CA$137)."
+    ),
     mode: "En ligne",
     badge: "Économise CA$60",
   },
@@ -210,25 +258,70 @@ export const offers: Offer[] = [
       "Lecture immédiate (PDF)",
     ],
     ctaLabel: "Obtenir le livre",
-    ctaHref: "#",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite obtenir Le Livre Complet du Business de Nettoyage (CA$67)."
+    ),
     mode: "En ligne",
   },
   {
-    id: "video-personnalisee",
-    title: "Pose-moi 1 à 3 questions — Réponse vidéo personnalisée",
+    id: "kit-templates",
+    title: "Kit Templates Pro Cleaning",
     description:
-      "Pose tes 3 questions & reçois une vidéo personnalisée réalisée par Gerlicia.",
-    price: 27,
-    priceLabel: "CA$27",
-    category: "Consultations",
-    tags: ["Débutant"],
+      "Pack complet de documents professionnels prêts à l'emploi pour structurer ton activité.",
+    price: 29,
+    priceLabel: "CA$29",
+    category: "Documents & Livres",
+    tags: ["Débutant", "Ressource"],
     highlights: [
-      "Jusqu'à 3 questions",
-      "Vidéo personnalisée (5-10 min)",
-      "Réponse sous 72h",
+      "Contrats clients & employés",
+      "Grilles tarifaires modulables",
+      "Scripts de prospection",
     ],
-    ctaLabel: "Recevoir ma vidéo",
-    ctaHref: "#",
+    ctaLabel: "Télécharger le kit",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite obtenir le Kit Templates Pro Cleaning (CA$29)."
+    ),
+    mode: "En ligne",
+  },
+  {
+    id: "ebook-demarrer",
+    title: "Ebook — Démarrer son business cleaning",
+    description:
+      "Le guide essentiel pour lancer ton entreprise de cleaning en 30 jours, sans diplôme et sans gros budget.",
+    price: 9.99,
+    priceLabel: "CA$9.99",
+    category: "Documents & Livres",
+    tags: ["Débutant", "Ressource"],
+    highlights: [
+      "Plan d'action 30 jours",
+      "Templates de devis & factures",
+      "Checklist matériel de départ",
+    ],
+    ctaLabel: "Obtenir l'ebook",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite obtenir l'Ebook Démarrer son business cleaning (CA$9.99)."
+    ),
+    mode: "En ligne",
+  },
+  {
+    id: "accompagnement-vip",
+    title: "Accompagnement VIP 6 Mois",
+    description:
+      "Immersion totale : je deviens ta directrice stratégique pendant 6 mois pour faire décoller ton entreprise.",
+    price: 3500,
+    priceLabel: "CA$3,500",
+    category: "Accompagnement",
+    tags: ["High-Ticket"],
+    highlights: [
+      "12 sessions privées + accès illimité",
+      "Construction de ton équipe (jusqu'à 10 personnes)",
+      "Dashboard KPI personnalisé",
+      "Ligne directe 6j/7",
+    ],
+    ctaLabel: "Candidater au VIP",
+    ctaHref: whatsappLink(
+      "Bonjour Gerlicia 👋 Je souhaite candidater à l'Accompagnement VIP 6 Mois (CA$3,500). Peux-tu m'expliquer la procédure ?"
+    ),
     mode: "En ligne",
   },
 ];

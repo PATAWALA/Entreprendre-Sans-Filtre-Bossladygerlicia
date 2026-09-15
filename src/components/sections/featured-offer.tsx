@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Crown, Clock, ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { offers } from "@/data/offers";
 
 export default function FeaturedOffer() {
@@ -11,82 +11,134 @@ export default function FeaturedOffer() {
   return (
     <section
       id="featured"
-      className="relative overflow-hidden bg-gradient-to-b from-[#0b0f17] via-[#0d1220] to-[#0b0f17] py-20 sm:py-28"
+      className="relative overflow-hidden py-24 sm:py-32"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-5xl px-6">
+        {/* ═══════════════════════════════════════════
+            HEADER
+            ═══════════════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="grid gap-10 rounded-3xl border border-amber-400/20 bg-gradient-to-br from-amber-400/[0.07] via-white/[0.02] to-transparent p-8 backdrop-blur-xl sm:p-12 lg:grid-cols-2 lg:gap-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 text-center"
         >
-          {/* Colonne gauche : pitch */}
+          <span className="eyebrow">{offer.badge}</span>
+          <h2 className="mt-4 text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
+            L'accompagnement qui
+            <br className="hidden sm:block" />
+            <span className="text-accent"> change tout.</span>
+          </h2>
+        </motion.div>
+
+        {/* ═══════════════════════════════════════════
+            CONTENU — 2 colonnes desktop, empilé mobile
+            ═══════════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="grid items-start gap-12 lg:grid-cols-[1.1fr,1fr] lg:gap-20"
+        >
+          {/* ══════════════════════════════════
+              COLONNE GAUCHE — PITCH
+              ══════════════════════════════════ */}
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-amber-300">
-              <Crown className="h-3.5 w-3.5" />
-              {offer.badge}
-            </div>
-
-            <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+            {/* Titre complet */}
+            <h3 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl">
               {offer.title}
-            </h2>
+            </h3>
 
-            <p className="mt-5 text-base text-slate-300 sm:text-lg">
+            {/* Description */}
+            <p className="mt-5 text-base leading-relaxed text-zinc-400 sm:text-lg">
               {offer.description}
             </p>
 
-            {/* Décompte de places */}
-            <div className="mt-7 inline-flex items-center gap-2.5 rounded-2xl border border-red-500/30 bg-red-500/5 px-4 py-2.5 text-sm text-red-300">
-              <Clock className="h-4 w-4 animate-pulse" />
-              <span className="font-medium">
-                Plus que <strong className="text-red-400">10 places</strong> sur
+            {/* Prix */}
+            <div className="mt-10 flex flex-wrap items-baseline gap-x-4 gap-y-2">
+              <div className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                {offer.priceLabel}
+              </div>
+              {offer.compareAtPrice && (
+                <div className="text-lg text-zinc-600 line-through">
+                  CA${offer.compareAtPrice.toLocaleString("fr-CA")}
+                </div>
+              )}
+            </div>
+
+            {/* Sous-texte paiement */}
+            <p className="mt-3 text-sm text-zinc-500">
+              Paiement en 3x sans frais disponible
+            </p>
+
+            {/* Encart urgence très discret */}
+            <div className="mt-8 flex items-center gap-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+              <span className="text-sm text-zinc-400">
+                Plus que{" "}
+                <span className="font-medium text-white">10 places</span> sur
                 ce cycle
               </span>
             </div>
 
-            {/* CTA */}
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            {/* CTA principal — WhatsApp */}
+            <div className="mt-10">
               <a
                 href={offer.ctaHref}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-8 py-4 text-base font-semibold text-[#0b0f17] shadow-lg shadow-amber-400/20 transition-all hover:scale-[1.03] hover:shadow-amber-400/40"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary group"
               >
                 {offer.ctaLabel}
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
-              <div className="text-center sm:text-left">
-                <div className="text-2xl font-bold text-white">
-                  {offer.priceLabel}
-                </div>
-                <div className="text-xs text-slate-400">
-                  Paiement en 3x disponible
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* Colonne droite : bénéfices */}
-          <div className="flex flex-col justify-center">
-            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-amber-400">
+          {/* ══════════════════════════════════
+              COLONNE DROITE — BÉNÉFICES
+              ══════════════════════════════════ */}
+          <div className="lg:pt-2">
+            <p className="mb-6 text-xs uppercase tracking-[0.15em] text-zinc-600">
               Ce que tu obtiens
-            </h3>
-            <ul className="space-y-4">
+            </p>
+
+            <ul className="space-y-5">
               {offer.highlights.map((h, i) => (
                 <motion.li
                   key={h}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 12 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="flex items-start gap-3"
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: i * 0.08,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="flex items-start gap-4"
                 >
-                  <div className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-amber-400/15">
-                    <Check className="h-3.5 w-3.5 text-amber-400" />
+                  <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-amber-400/10">
+                    <Check className="h-3 w-3 text-amber-400" />
                   </div>
-                  <span className="text-slate-200">{h}</span>
+                  <span className="text-base leading-relaxed text-zinc-300">
+                    {h}
+                  </span>
                 </motion.li>
               ))}
             </ul>
+
+            {/* Note garantie discrète */}
+            <div className="mt-10 border-t border-white/5 pt-6">
+              <p className="text-xs uppercase tracking-[0.15em] text-zinc-600">
+                Garantie
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                Si après la 1ère session tu n'es pas convaincue, je te
+                rembourse intégralement. Sans question.
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>

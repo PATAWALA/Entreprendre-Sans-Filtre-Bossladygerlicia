@@ -2,99 +2,122 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
-import { FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════ */
 const LINKS = [
-  { label: "Accueil", href: "#" },
+  { label: "À propos", href: "#about" },
   { label: "Formations", href: "#catalog" },
   { label: "Accompagnement", href: "#featured" },
-  { label: "YouTube", href: "#youtube" },
-  { label: "Boutique", href: "#boutique" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
+  /* Détection du scroll pour afficher le fond flouté */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Bloque le scroll quand le menu mobile est ouvert */
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/5 bg-[#0b0f17]/80 backdrop-blur-xl"
+          ? "border-b border-white/8 bg-[#08090d]/85 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-amber-400 to-amber-600 text-sm font-bold text-[#0b0f17]">
-            BL
-          </div>
-          <span className="hidden text-sm font-bold text-white sm:block">
-            Bossladygerlicia
-          </span>
+        {/* ═══════════════════════════════════════════
+            LOGO
+            ═══════════════════════════════════════════ */}
+        <a href="#" className="flex items-center">
+          <Image
+            src="/logo.jpeg"
+            alt="Entreprendre Sans Filtre"
+            width={140}
+            height={36}
+            className="h-8 w-auto object-contain"
+            priority
+          />
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        {/* ═══════════════════════════════════════════
+            NAV DESKTOP
+            ═══════════════════════════════════════════ */}
+        <nav className="hidden items-center gap-10 lg:flex">
           {LINKS.map((l) => (
             <a
               key={l.label}
               href={l.href}
-              className="text-sm font-medium text-slate-300 transition-colors hover:text-amber-400"
+              className="text-sm font-medium text-zinc-400 transition-colors duration-200 hover:text-white"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
+        {/* ═══════════════════════════════════════════
+            CTA DESKTOP + BURGER MOBILE
+            ═══════════════════════════════════════════ */}
         <div className="flex items-center gap-3">
           <a
-            href="https://youtube.com/@bossladygerlicia"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-xs font-semibold text-red-300 transition-all hover:bg-red-500 hover:text-white sm:inline-flex"
-          >
-            <FaYoutube className="h-3.5 w-3.5" />
-            YouTube
-          </a>
-          <a
             href="#recommender"
-            className="hidden items-center gap-2 rounded-full bg-linear-to-r from-amber-400 to-amber-500 px-5 py-2.5 text-xs font-semibold text-[#0b0f17] shadow-lg shadow-amber-400/20 transition-all hover:scale-[1.03] sm:inline-flex"
+            className="hidden items-center rounded-full bg-linear-to-br from-amber-300 to-amber-600 px-5 py-2.5 text-xs font-semibold text-[#08090d] transition-all duration-200 hover:from-amber-200 hover:to-amber-500 sm:inline-flex"
           >
             Trouver mon offre
-            <ArrowRight className="h-3.5 w-3.5" />
           </a>
 
           <button
             onClick={() => setOpen(!open)}
-            className="rounded-lg border border-white/10 p-2 text-white lg:hidden"
-            aria-label="Menu"
+            className="rounded-lg p-2 text-white transition-colors duration-200 hover:bg-white/5 lg:hidden"
+            aria-label="Ouvrir le menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* ═══════════════════════════════════════════
+          MENU MOBILE
+          ═══════════════════════════════════════════ */}
       {open && (
-        <div className="border-t border-white/5 bg-[#0b0f17]/95 backdrop-blur-xl lg:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-4">
+        <div className="border-t border-white/8 bg-[#08090d]/98 backdrop-blur-xl lg:hidden">
+          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-6">
             {LINKS.map((l) => (
               <a
                 key={l.label}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-amber-400"
+                className="rounded-lg px-3 py-3 text-sm font-medium text-zinc-400 transition-colors duration-200 hover:bg-white/[0.03] hover:text-white"
               >
                 {l.label}
               </a>
             ))}
+
+            {/* CTA dans le menu mobile */}
+            <a
+              href="#recommender"
+              onClick={() => setOpen(false)}
+              className="mt-4 inline-flex items-center justify-center rounded-full bg-linear-to-br from-amber-300 to-amber-600 px-5 py-3.5 text-sm font-semibold text-[#08090d] transition-all duration-200 hover:from-amber-200 hover:to-amber-500"
+            >
+              Trouver mon offre
+            </a>
           </nav>
         </div>
       )}
